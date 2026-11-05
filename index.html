@@ -2,3 +2,14 @@
 layout: index
 lang: en
 ---
+When running CPORT locally, modules relying on external endpoints hosted by Tel Aviv University (`bioinfo3d.cs.tau.ac.il` for ScanNet, SPPIDER, etc.) fail immediately with connection refused errors (`[WinError 10061]`), causing the multi-threaded pipeline to break before aggregation.
+
+Steps to reproduce the behavior:
+1. Install CPORT (`v0.2.0-alpha`).
+2. Run the command: `cport "C:\path\to\protein.pdb" A`
+3. Observe threads crashing on external API requests.
+
+```text
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='bioinfo3d.cs.tau.ac.il', port=80): Max retries exceeded with url: /ScanNet/index_real.html (Caused by NewConnectionError("HTTPConnection(host='bioinfo3d.cs.tau.ac.il', port=80): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+
+Thanks for such an amazing project!
